@@ -1,0 +1,19 @@
+
+[1] What does xarinstall do ?
+[2] What do I need to compile this ?
+
+--------------------------------------------------------------------------
+[1] What does xarinstall do ?
+--------------------------------------------------------------------------
+xarinstall does the following:
+
+   - Installs files in a xar-ball.
+   - Carries a database of which files you have installed.
+
+--------------------------------------------------------------------------
+[2] What do I need to compile this ?
+--------------------------------------------------------------------------
+xarinstall dependends upon:
+
+   - xar!
+   - sqlite3 (included with darwin since version 8).
