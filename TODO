@@ -1,2 +1,3 @@
-* Actually finish program
-* Write a xarpkg target for DarwinPorts
+* Actually finish program.
+* Use autoconf insted of stupid Makefile.
+* Write a xarpkg target for DarwinPorts.
