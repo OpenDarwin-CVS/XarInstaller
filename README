@@ -17,3 +17,4 @@ xarinstall dependends upon:
 
    - xar!
    - sqlite3 (included with darwin since version 8).
+   - openssl 
