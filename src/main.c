@@ -39,7 +39,7 @@
 void 
 print_usage(const char* progname)
 {
-	fprintf(stderr, "Usage: %s-arlc xarchive\n", progname);
+	fprintf(stderr, "Usage: %s -arlc xarchive\n", progname);
 	fprintf(stderr, "\t-a <xarball>\n");
 	fprintf(stderr, "\t-r <xarchivename>\n");
 	fprintf(stderr, "\t-l\n");
