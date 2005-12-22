@@ -62,9 +62,33 @@ initdb(const char* xarch)
 	}
 
 	/* Check if xarchive is allready in main-table */
-	db_error_msg = sqlite3_exec(db, "SQLSTATEMENT", NULL, NULL, &db_error_msg);
+	char sqlstring[512];
+	snprintf(
+		sqlstring, 512, 
+		"CREATE TABLE maintable (key INTEGER PRIMARY KEY, xarchname TEXT);"
+	);
 
-	/* Add xarchive to maintabel */
+	returnvalue = sqlite3_exec(db, sqlstring, NULL, NULL, &db_error_msg);
+
+	if (returnvalue != SQLITE_OK)
+	{
+		/* Something went wrong */
+	}
+
+	/* Add xarch to maintable */
+
+	/* Create xarch table */
+	snprintf(
+		sqlstring, 512,
+		"CREATE TABLE %s (key INTEGER PRIMARY KEY, filename TEXT, checksum);", xarch 
+	);
+
+	returnvalue = sqlite3_exec(db, sqlstring, NULL, NULL, &db_error_msg);
+
+	if (returnvalue != SQLITE_OK)
+	{
+		/* Something went wrong */
+	}
 
 	/* Close up and return */
 	sqlite3_close(db);	
