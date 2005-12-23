@@ -52,6 +52,8 @@ initdb(const char* xarch)
 	int returnvalue;
 	char *db_error_msg;
 
+	int xarchnumber = 0;
+
 	/* Open the xi database */
 	returnvalue = sqlite3_open("/var/db/xi.db", &db);
 	if (returnvalue == 0)
@@ -61,7 +63,7 @@ initdb(const char* xarch)
 		exit(1);
 	}
 
-	/* Check if xarchive is allready in main-table */
+	/* Create maintable XXX this might cause grief XXX */
 	char sqlstring[512];
 	snprintf(
 		sqlstring, 512, 
@@ -76,11 +78,29 @@ initdb(const char* xarch)
 	}
 
 	/* Add xarch to maintable */
+	snprintf(
+		sqlstring, 512, 
+		"INSERT INTO maintable (xarchname) VALUES ('%s');",
+		xarch
+	);
+
+	/* Get the key number */
+	/* xarchnumber = keynumber; */
+
+	returnvalue = sqlite3_exec(db, sqlstring, NULL, NULL, &db_error_msg);
+
+	if (returnvalue != SQLITE_OK)
+	{
+		/* Something went wrong */
+	}
+
 
 	/* Create xarch table */
 	snprintf(
 		sqlstring, 512,
-		"CREATE TABLE %s (key INTEGER PRIMARY KEY, filename TEXT, checksum);", xarch 
+		"CREATE TABLE %s-%d (key INTEGER PRIMARY KEY, filename TEXT, checksum);",
+		xarch,
+		xarchnumber
 	);
 
 	returnvalue = sqlite3_exec(db, sqlstring, NULL, NULL, &db_error_msg);
@@ -90,9 +110,11 @@ initdb(const char* xarch)
 		/* Something went wrong */
 	}
 
-	/* Close up and return */
-	sqlite3_close(db);	
-	return 0;
+	/* Close up the database */
+	sqlite3_close(db);
+	
+	/* Return the xarchnumber */
+	return xarchnumber;
 }
 
 /* Adds and entry to the DB */
