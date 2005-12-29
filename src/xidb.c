@@ -46,17 +46,17 @@
 sqlite3 *db;
 
 /* Initially add xarchive to main-table and create xarchive table */
+/* Returns the number of the index or a negative number if failure */
 int 
 initdb(const char* xarch)
 {
 	int returnvalue;
 	char *db_error_msg;
-
-	int xarchnumber = 0;
+	int xarchnumber = 0; /* Number to assign to xarchive */
 
 	/* Open the xi database */
 	returnvalue = sqlite3_open("/var/db/xi.db", &db);
-	if (returnvalue == 0)
+	if (returnvalue)
 	{
 		fprintf(stderr, "Could not open the xi database: %s.\n", sqlite3_errmsg(db));
 		sqlite3_close(db);
@@ -78,14 +78,12 @@ initdb(const char* xarch)
 	}
 
 	/* Add xarch to maintable */
+
 	snprintf(
 		sqlstring, 512, 
 		"INSERT INTO maintable (xarchname) VALUES ('%s');",
 		xarch
 	);
-
-	/* Get the key number */
-	/* xarchnumber = keynumber; */
 
 	returnvalue = sqlite3_exec(db, sqlstring, NULL, NULL, &db_error_msg);
 
@@ -94,6 +92,8 @@ initdb(const char* xarch)
 		/* Something went wrong */
 	}
 
+	/* XXX Get the key number XXX */
+	/* xarchnumber = keynumber; */
 
 	/* Create xarch table */
 	snprintf(
