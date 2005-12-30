@@ -31,7 +31,6 @@
  * Ole Guldberg Jensen <olegb@opendarwin.org>
  */
 
-
 /*
  * Database handling for xarinstall
  */
