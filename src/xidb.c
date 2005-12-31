@@ -62,7 +62,7 @@ initdb(const char* xarch)
 		exit(1);
 	}
 
-	/* Create maintable XXX this might cause grief XXX */
+	/* Create maintable XXX this will fail if the table allready exists XXX */
 	char sqlstring[512];
 	snprintf(
 		sqlstring, 512, 
@@ -74,6 +74,7 @@ initdb(const char* xarch)
 	if (returnvalue != SQLITE_OK)
 	{
 		/* Something went wrong */
+		fprintf(stderr, "SQL statement: %s FAILED\nREASON: %s\n", sqlstring, db_error_msg);
 	}
 
 	/* Add xarch to maintable */
@@ -88,6 +89,7 @@ initdb(const char* xarch)
 	if (returnvalue != SQLITE_OK)
 	{
 		/* Something went wrong */
+		fprintf(stderr, "SQL statement: %s FAILED\nREASON: %s\n", sqlstring, db_error_msg);
 	}
 
 	/* xarchnumber = keynumber; */
@@ -97,7 +99,7 @@ initdb(const char* xarch)
 	/* Create xarch table */
 	snprintf(
 		sqlstring, 512,
-		"CREATE TABLE %s-%d (key INTEGER PRIMARY KEY, filename TEXT, checksum);",
+		"CREATE TABLE %s_%d (key INTEGER PRIMARY KEY, filename TEXT, checksum);",
 		xarch,
 		xarchnumber
 	);
@@ -107,6 +109,7 @@ initdb(const char* xarch)
 	if (returnvalue != SQLITE_OK)
 	{
 		/* Something went wrong */
+		fprintf(stderr, "SQL statement: %s FAILED\nREASON: %s\n", sqlstring, db_error_msg);
 	}
 
 	/* Close up the database */
