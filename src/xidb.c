@@ -77,7 +77,6 @@ initdb(const char* xarch)
 	}
 
 	/* Add xarch to maintable */
-
 	snprintf(
 		sqlstring, 512, 
 		"INSERT INTO maintable (xarchname) VALUES ('%s');",
@@ -91,8 +90,9 @@ initdb(const char* xarch)
 		/* Something went wrong */
 	}
 
-	/* XXX Get the key number XXX */
 	/* xarchnumber = keynumber; */
+	xarchnumber = sqlite3_last_insert_rowid(db);
+	printf("Inserted %s into maintable at index %d\n", xarch, xarchnumber);
 
 	/* Create xarch table */
 	snprintf(
