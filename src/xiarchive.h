@@ -40,7 +40,7 @@ get_ripemd_digest(const char* filename);
 
 /* Extract a xarchive and add it to the database */
 int
-add_xarchive_with_name(const char* filename);
+add_xarchive_with_name(const char* xarchivename);
 
 int
 remove_xarchive_with_name(const char* xarchivename);

@@ -34,7 +34,30 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
 #include <xiarchive.h>
+
+char *
+str_strip(const char * string)
+{
+	char *tmp;
+
+	if( (tmp = strdup(string)) == NULL)
+	{
+		fprintf(stderr, "Could not duplicate string?!\n");
+		exit(1);
+	}
+
+	int i;
+	for (i = 0; i <= strlen(&tmp); i++)
+	{
+		/* Remove "." */
+		/* Remove "-" */
+	}
+
+	return tmp;
+}
 
 void 
 print_usage(const char* progname)
@@ -69,7 +92,11 @@ main (int argc, char *argv[])
 						"You are trying to add the archive: %s\n",
 						optarg);
 
-				add_xarchive_with_name(optarg);
+				char* filename_stripped;
+
+				filename_stripped = str_strip(optarg);
+
+				add_xarchive_with_name(filename_stripped);
 
 				break;
 

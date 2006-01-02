@@ -119,10 +119,10 @@ get_ripemd_digest(const char* filename)
 
 /* Adds a xarchive from a filename */
 int
-add_xarchive_with_name(const char* filename)
+add_xarchive_with_name(const char* xarchname)
 {
 	/* Init database for writing entries */
-	if (initdb("xarch-name-version") != 0)
+	if (initdb(xarchname) < 0)
 	{
 		fprintf(stderr, "Could not initialize xidb!!\n");
 	}
@@ -131,10 +131,10 @@ add_xarchive_with_name(const char* filename)
 	xar_iter_t xarch_i;
 	xar_file_t xarch_f;
 
-	xarch = xar_open(filename, READ);
+	xarch = xar_open(xarchname, READ);
 	if (xarch == NULL )
 	{
-		fprintf(stderr, "Could not open xarchive: %s\n", filename);
+		fprintf(stderr, "Could not open xarchive: %s\n", xarchname);
 		exit(1);
 	}
 
@@ -184,7 +184,7 @@ add_xarchive_with_name(const char* filename)
 
 	if (xar_close(xarch) != 0)
 	{
-		fprintf(stderr, "Problem close xarchive %s\n", filename);
+		fprintf(stderr, "Problem close xarchive %s\n", xarchname);
 	}
 
 	return 0;
