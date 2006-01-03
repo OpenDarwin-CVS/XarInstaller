@@ -49,10 +49,15 @@ str_strip(const char * string)
 		exit(1);
 	}
 
+	/* Get the filename */
+	tmp = strsep(&tmp, "/");
+
 	int i;
 	for (i = 0; i <= strlen(&tmp); i++)
 	{
+
 		/* Remove "." */
+		
 		/* Remove "-" */
 	}
 
