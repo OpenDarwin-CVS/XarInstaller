@@ -53,6 +53,35 @@
 
 unsigned char checksum[EVP_MAX_MD_SIZE];
 
+char *
+strip_path(const char *string)
+{
+	char *tmp1, *tmp2;
+
+	if( (tmp1 = strdup(string)) == NULL)
+	{
+		fprintf(stderr, "Could not duplicate string?!\n");
+		exit(1);
+	}
+
+	/* Get the filename */
+	char *tmp3; 
+	while ( (tmp2 = strsep(&tmp1, "/"))  != NULL)
+	{
+		tmp3 = tmp2;
+	}
+	tmp1 = tmp3;
+
+	int i;
+	for (i = 0; i <= strlen(&tmp2); i++)
+	{
+		/* Remove "." */
+		/* Remove "-" */
+	}
+
+	return tmp1;
+}
+
 /* Returns the ripemd digest of a file */
 unsigned char*
 get_ripemd_digest(const char* filename)
@@ -122,7 +151,7 @@ int
 add_xarchive_with_name(const char* xarchname)
 {
 	/* Init database for writing entries */
-	if (initdb(xarchname) < 0)
+	if (initdb(strip_path(xarchname) ) < 0)
 	{
 		fprintf(stderr, "Could not initialize xidb!!\n");
 	}

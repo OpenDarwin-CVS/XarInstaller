@@ -38,32 +38,6 @@
 
 #include <xiarchive.h>
 
-char *
-str_strip(const char * string)
-{
-	char *tmp;
-
-	if( (tmp = strdup(string)) == NULL)
-	{
-		fprintf(stderr, "Could not duplicate string?!\n");
-		exit(1);
-	}
-
-	/* Get the filename */
-	tmp = strsep(&tmp, "/");
-
-	int i;
-	for (i = 0; i <= strlen(&tmp); i++)
-	{
-
-		/* Remove "." */
-		
-		/* Remove "-" */
-	}
-
-	return tmp;
-}
-
 void 
 print_usage(const char* progname)
 {
@@ -95,13 +69,10 @@ main (int argc, char *argv[])
 			case 'a':
 				fprintf(stdout, 
 						"You are trying to add the archive: %s\n",
-						optarg);
+						optarg
+				);
 
-				char* filename_stripped;
-
-				filename_stripped = str_strip(optarg);
-
-				add_xarchive_with_name(filename_stripped);
+				add_xarchive_with_name(optarg);
 
 				break;
 
