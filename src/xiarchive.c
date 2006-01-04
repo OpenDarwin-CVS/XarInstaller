@@ -72,12 +72,19 @@ strip_path(const char *string)
 	}
 	tmp1 = tmp3;
 
-	int i;
-	for (i = 0; i <= strlen(&tmp2); i++)
+	char *helper;
+	while ( (helper = strchr(tmp1, '.')) != NULL)
 	{
-		/* Remove "." */
-		/* Remove "-" */
+		/* Replace '.' with '+' */
+		*helper = '_';
+		
 	}
+
+	while ( (helper = strchr(tmp1, '-')) != NULL)
+	{
+		/* Replace '-' with '_' */
+		*helper = '_';
+	} 
 
 	return tmp1;
 }
