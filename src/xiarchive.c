@@ -53,6 +53,7 @@
 
 unsigned char checksum[EVP_MAX_MD_SIZE];
 
+/* Strips the path from a filename */
 char *
 strip_path(const char *string)
 {
