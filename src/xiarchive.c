@@ -99,7 +99,7 @@ get_ripemd_digest(const char* filename)
 	const EVP_MD *md = EVP_ripemd160();
 	if (md == NULL)
 	{
-		fprintf(stderr, "Why doesnt you openssl understand ripemd160 ... I need that !\n");
+		fprintf(stderr, "ERROR: OpenSSL doesnt understand RIPEMD160.\n");
 		exit(1);
 	}
 
