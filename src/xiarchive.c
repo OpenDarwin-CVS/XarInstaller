@@ -72,6 +72,8 @@ strip_path(const char *string)
 	}
 	tmp1 = tmp3;
 
+	free(tmp2); free(tmp3);
+
 	char *helper;
 	while ( (helper = strchr(tmp1, '.')) != NULL)
 	{
