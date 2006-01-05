@@ -40,11 +40,11 @@
 
 /* Creates initial DB tables for a xarchive */
 int
-initdb (const char* xarch);
+initdb (const char *xarch);
 
 /* Add file entries to the DB */
 int
-add_entry_to_db(const char* filename, const unsigned char* checksum);
+add_entry_to_db(const char *xarch, const char *filename, const unsigned char* checksum);
 
 /* Remove xarchive from DB */
 int

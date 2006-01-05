@@ -123,10 +123,12 @@ initdb(const char* xarch)
 
 /* Adds and entry to the DB */
 int 
-add_entry_to_db(const char* filename, const unsigned char* checksum)
+add_entry_to_db(const char *xarch, const char *filename, const unsigned char* checksum)
 {
 	int returnvalue;
 	char *db_error_msg;
+
+	char sqlstring[512];
 	
 	/* Open the xi database */
 	returnvalue = sqlite3_open("/var/db/xi.db", &db);
@@ -137,14 +139,22 @@ add_entry_to_db(const char* filename, const unsigned char* checksum)
 		exit(1);
 	}
 
-	/* Execute SQL statement on DB */
-	/* sqlite3_exec(db, "SQL STATEMENT", callback, NULL, &errmsg) */
 	/* Add file and checksum to xarchive table */
-	returnvalue = sqlite3_exec(db, "SQLSTATEMENT", NULL, NULL, &db_error_msg);
+	/* XXX */
+	snprintf(
+		sqlstring, 512,
+		"INSERT INTO %s (filename, checksum) VALUES ('%s','%s');",
+		xarch,
+		filename,
+		checksum
+	);
+
 	if (returnvalue != SQLITE_OK)
 	{
-		fprintf(stderr, "Error executing SQL statement on xidb: %s\n", db_error_msg);
+		/* Something went wrong */
+		fprintf(stderr, "SQL statement: %s FAILED\nREASON: %s\n", sqlstring, db_error_msg);
 	}
+
 
 	/* Close up and return */
 	sqlite3_close(db);

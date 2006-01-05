@@ -159,7 +159,7 @@ get_ripemd_digest(const char* filename)
 
 /* Adds a xarchive from a filename */
 int
-add_xarchive_with_name(const char* xarchname)
+add_xarchive_with_name(const char *xarchname)
 {
 	/* Init database for writing entries */
 	if (initdb(strip_path(xarchname) ) < 0)
