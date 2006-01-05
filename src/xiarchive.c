@@ -73,9 +73,6 @@ strip_path(const char *string)
 	}
 	tmp1 = tmp3;
 
-	/* Free() tmp2 and tmp3 we don't need them anymore */
-	free(tmp2); free(tmp3);
-
 	char *helper;
 	while ( (helper = strchr(tmp1, '.')) != NULL)
 	{
@@ -161,8 +158,10 @@ get_ripemd_digest(const char* filename)
 int
 add_xarchive_with_name(const char *xarchname)
 {
+	int key;
+
 	/* Init database for writing entries */
-	if (initdb(strip_path(xarchname) ) < 0)
+	if ( (key = initdb(strip_path(xarchname))) < 0)
 	{
 		fprintf(stderr, "Could not initialize xidb!!\n");
 	}
@@ -208,14 +207,25 @@ add_xarchive_with_name(const char *xarchname)
 		}
 		printf("\n");
 
+		/* Add the file to the Database */
+		char tablename[512];
+		snprintf(
+			tablename,
+			512, 
+			"%s_%d",
+			strip_path(xarchname),
+			key
+		);
+		printf("Inserting into %s\n",tablename);
+
+		add_entry_to_db(tablename, xarchname, checksum);
+
 		/* Clear checksum */
 		for (i = 0; i < strlen(checksum); i++)
 		{
 			checksum[i] = 0;
 		}
 
-		/* Add the file to the Database */
-		
 
 	}
 

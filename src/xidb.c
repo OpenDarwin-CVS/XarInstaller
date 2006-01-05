@@ -132,7 +132,7 @@ add_entry_to_db(const char *xarch, const char *filename, const unsigned char* ch
 	
 	/* Open the xi database */
 	returnvalue = sqlite3_open("/var/db/xi.db", &db);
-	if (returnvalue == 0)
+	if (returnvalue)
 	{
 		fprintf(stderr, "Could not open the xi database: %s.\n", sqlite3_errmsg(db));
 		sqlite3_close(db);
@@ -149,6 +149,7 @@ add_entry_to_db(const char *xarch, const char *filename, const unsigned char* ch
 		checksum
 	);
 
+	returnvalue = sqlite3_exec(db, sqlstring, NULL, NULL, &db_error_msg);
 	if (returnvalue != SQLITE_OK)
 	{
 		/* Something went wrong */
