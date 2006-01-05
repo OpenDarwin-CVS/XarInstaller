@@ -53,6 +53,8 @@ initdb(const char* xarch)
 	char *db_error_msg;
 	int xarchnumber = 0; /* Number to assign to xarchive */
 
+	/* Check if we are able to write to the DB - if not fail */
+
 	/* Open the xi database */
 	returnvalue = sqlite3_open("/var/db/xi.db", &db);
 	if (returnvalue)

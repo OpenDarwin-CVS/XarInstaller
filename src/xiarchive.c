@@ -73,6 +73,7 @@ strip_path(const char *string)
 	}
 	tmp1 = tmp3;
 
+	/* Free() tmp2 and tmp3 we don't need them anymore */
 	free(tmp2); free(tmp3);
 
 	char *helper;
