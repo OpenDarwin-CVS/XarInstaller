@@ -38,6 +38,7 @@
 /* Standard headers */
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 /* Dependency headers */
 #include <sqlite3.h>
@@ -52,11 +53,18 @@ initdb(const char* xarch)
 	int returnvalue;
 	char *db_error_msg;
 	int xarchnumber = 0; /* Number to assign to xarchive */
+	char *dbpath = "/var/db/xi.db";
 
 	/* Check if we are able to write to the DB - if not fail */
+	returnvalue = access(dbpath, W_OK);
+	if (returnvalue == -1)
+	{
+		fprintf(stderr, "FAILURE: Couldnt read and/or write to xidb\n");
+		exit(1);
+	}
 
 	/* Open the xi database */
-	returnvalue = sqlite3_open("/var/db/xi.db", &db);
+	returnvalue = sqlite3_open(dbpath, &db);
 	if (returnvalue)
 	{
 		fprintf(stderr, "Could not open the xi database: %s.\n", sqlite3_errmsg(db));

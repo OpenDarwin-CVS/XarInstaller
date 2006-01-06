@@ -164,6 +164,7 @@ add_xarchive_with_name(const char *xarchname)
 	if ( (key = initdb(strip_path(xarchname))) < 0)
 	{
 		fprintf(stderr, "Could not initialize xidb!!\n");
+		exit(1);
 	}
 
 	xar_t xarch;
