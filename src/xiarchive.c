@@ -191,7 +191,7 @@ add_xarchive_with_name(const char *xarchname)
 	for (xarch_f = xar_file_first(xarch, xarch_i); xarch_f ; xarch_f = xar_file_next(xarch_i) )
 	{
 		/* Process xarch_f */
-		printf("Processing %s\n", xar_get_path(xarch_f));
+		printf("%s", xar_get_path(xarch_f));
 
 		/* Extract the file */
 		xar_extract(xarch, xarch_f);
@@ -200,13 +200,13 @@ add_xarchive_with_name(const char *xarchname)
 		get_ripemd_digest(xar_get_path(xarch_f)); 
 
 		int i;
-		printf("Digest recieved: ");
+		printf(" (");
 		for (i = 0; i < strlen(checksum); i++) 
 		{
 			/* Print checksum */
 			printf("%02x", checksum[i]);
 		}
-		printf("\n");
+		printf(")\n");
 
 		/* Add the file to the Database */
 		char tablename[512];
@@ -217,7 +217,6 @@ add_xarchive_with_name(const char *xarchname)
 			strip_path(xarchname),
 			key
 		);
-		printf("Inserting into %s\n",tablename);
 
 		add_entry_to_db(tablename, xarchname, checksum);
 
@@ -226,8 +225,6 @@ add_xarchive_with_name(const char *xarchname)
 		{
 			checksum[i] = 0;
 		}
-
-
 	}
 
 	/* Close up and return */

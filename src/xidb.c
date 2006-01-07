@@ -163,7 +163,6 @@ add_entry_to_db(const char *xarch, const char *filename, const unsigned char* ch
 		fprintf(stderr, "SQL statement: %s FAILED\nREASON: %s\n", sqlstring, db_error_msg);
 	}
 
-
 	/* Close up and return */
 	sqlite3_close(db);
 	return 0;
@@ -173,6 +172,35 @@ add_entry_to_db(const char *xarch, const char *filename, const unsigned char* ch
 int
 remove_xarchive_from_db(const char* xarch)
 {
+	int returnvalue;
+	char *db_error_msg;
+
+	char sqlstring[512];
+	
+	/* Open the xi database */
+	returnvalue = sqlite3_open("/var/db/xi.db", &db);
+	if (returnvalue)
+	{
+		fprintf(stderr, "Could not open the xi database: %s.\n", sqlite3_errmsg(db));
+		sqlite3_close(db);
+		exit(1);
+	}
+
+	/* Add file and checksum to xarchive table */
+	snprintf(
+		sqlstring, 512,
+		""
+	);
+
+	returnvalue = sqlite3_exec(db, sqlstring, NULL, NULL, &db_error_msg);
+	if (returnvalue != SQLITE_OK)
+	{
+		/* Something went wrong */
+		fprintf(stderr, "SQL statement: %s FAILED\nREASON: %s\n", sqlstring, db_error_msg);
+	}
+
+	/* Close up and return */
+	sqlite3_close(db);
 	return 0;
 }
 
@@ -180,11 +208,70 @@ remove_xarchive_from_db(const char* xarch)
 char*
 list_installed_xarchives(void)
 {
+	int returnvalue;
+	char *db_error_msg;
+
+	char sqlstring[512];
+	
+	/* Open the xi database */
+	returnvalue = sqlite3_open("/var/db/xi.db", &db);
+	if (returnvalue)
+	{
+		fprintf(stderr, "Could not open the xi database: %s.\n", sqlite3_errmsg(db));
+		sqlite3_close(db);
+		exit(1);
+	}
+
+	/* Add file and checksum to xarchive table */
+	snprintf(
+		sqlstring, 512,
+		""
+	);
+
+	returnvalue = sqlite3_exec(db, sqlstring, NULL, NULL, &db_error_msg);
+	if (returnvalue != SQLITE_OK)
+	{
+		/* Something went wrong */
+		fprintf(stderr, "SQL statement: %s FAILED\nREASON: %s\n", sqlstring, db_error_msg);
+	}
+
+	/* Close up and return */
+	sqlite3_close(db);
 	return NULL;
 }
+
 /* Returns the files installed in a xarchive */
 char*
 list_installed_in_xarchive(const char *xarch)
 {
+	int returnvalue;
+	char *db_error_msg;
+
+	char sqlstring[512];
+	
+	/* Open the xi database */
+	returnvalue = sqlite3_open("/var/db/xi.db", &db);
+	if (returnvalue)
+	{
+		fprintf(stderr, "Could not open the xi database: %s.\n", sqlite3_errmsg(db));
+		sqlite3_close(db);
+		exit(1);
+	}
+
+	/* Add file and checksum to xarchive table */
+	snprintf(
+		sqlstring, 512,
+		""
+	);
+
+	returnvalue = sqlite3_exec(db, sqlstring, NULL, NULL, &db_error_msg);
+	if (returnvalue != SQLITE_OK)
+	{
+		/* Something went wrong */
+		fprintf(stderr, "SQL statement: %s FAILED\nREASON: %s\n", sqlstring, db_error_msg);
+	}
+
+	/* Close up and return */
+	sqlite3_close(db);
 	return NULL;
 }
