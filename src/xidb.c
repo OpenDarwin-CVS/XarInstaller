@@ -148,7 +148,6 @@ add_entry_to_db(const char *xarch, const char *filename, const unsigned char* ch
 	}
 
 	/* Add file and checksum to xarchive table */
-	/* XXX */
 	snprintf(
 		sqlstring, 512,
 		"INSERT INTO %s (filename, checksum) VALUES ('%s','%s');",
@@ -177,9 +176,15 @@ remove_xarchive_from_db(const char* xarch)
 	return 0;
 }
 
-/* Returns a list of installed xarchives */
-char**
+/* Returns installed xarchives */
+char*
 list_installed_xarchives(void)
+{
+	return NULL;
+}
+/* Returns the files installed in a xarchive */
+char*
+list_installed_in_xarchive(const char *xarch)
 {
 	return NULL;
 }

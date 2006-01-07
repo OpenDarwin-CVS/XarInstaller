@@ -50,8 +50,12 @@ add_entry_to_db(const char *xarch, const char *filename, const unsigned char* ch
 int
 remove_xarchive_from_db(const char* xarch);
 
-/* Retrieve a list of installed xarchives */
-char**
+/* Returns installed xarchives */
+char*
 list_installed_xarchives(void);
+
+/* Returns the files installed in a xarchive */
+char*
+list_installed_in_xarchive(const char *xarch);
 
 #endif /* _XIDB_H_ */
