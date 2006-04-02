@@ -53,9 +53,10 @@ initdb(const char* xarch)
 	int returnvalue;
 	char *db_error_msg;
 	int xarchnumber = 0; /* Number to assign to xarchive */
-	char *dbpath = "/var/db/xi.db";
+	char *dbpath = "/var/xi.db";
 
 	/* Check if we are able to write to the DB - if not fail */
+	/* XXX This will fail if the xi.db doesnt exist XXX */
 	returnvalue = access(dbpath, W_OK);
 	if (returnvalue == -1)
 	{
@@ -222,7 +223,7 @@ list_installed_xarchives(void)
 		exit(1);
 	}
 
-	/* Add file and checksum to xarchive table */
+	/* Get installed xarchives */
 	snprintf(
 		sqlstring, 512,
 		""
