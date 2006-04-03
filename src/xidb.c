@@ -44,6 +44,7 @@
 #include <sqlite3.h>
 
 sqlite3 *db;
+const char *dbpath = "/var/xi.db";
 
 /* Initially add xarchive to main-table and create xarchive table */
 /* Returns the number of the index or a negative number if failure */
@@ -53,7 +54,6 @@ initdb(const char* xarch)
 	int returnvalue;
 	char *db_error_msg;
 	int xarchnumber = 0; /* Number to assign to xarchive */
-	char *dbpath = "/var/xi.db";
 
 	/* Check if we are able to write to the DB - if not fail */
 	/* XXX This will fail if the xi.db doesnt exist XXX */
@@ -140,7 +140,7 @@ add_entry_to_db(const char *xarch, const char *filename, const unsigned char* ch
 	char sqlstring[512];
 	
 	/* Open the xi database */
-	returnvalue = sqlite3_open("/var/db/xi.db", &db);
+	returnvalue = sqlite3_open(dbpath, &db);
 	if (returnvalue)
 	{
 		fprintf(stderr, "Could not open the xi database: %s.\n", sqlite3_errmsg(db));
@@ -179,7 +179,7 @@ remove_xarchive_from_db(const char* xarch)
 	char sqlstring[512];
 	
 	/* Open the xi database */
-	returnvalue = sqlite3_open("/var/db/xi.db", &db);
+	returnvalue = sqlite3_open(dbpath, &db);
 	if (returnvalue)
 	{
 		fprintf(stderr, "Could not open the xi database: %s.\n", sqlite3_errmsg(db));
@@ -215,7 +215,7 @@ list_installed_xarchives(void)
 	char sqlstring[512];
 	
 	/* Open the xi database */
-	returnvalue = sqlite3_open("/var/db/xi.db", &db);
+	returnvalue = sqlite3_open(dbpath, &db);
 	if (returnvalue)
 	{
 		fprintf(stderr, "Could not open the xi database: %s.\n", sqlite3_errmsg(db));
@@ -251,7 +251,7 @@ list_installed_in_xarchive(const char *xarch)
 	char sqlstring[512];
 	
 	/* Open the xi database */
-	returnvalue = sqlite3_open("/var/db/xi.db", &db);
+	returnvalue = sqlite3_open(dbpath, &db);
 	if (returnvalue)
 	{
 		fprintf(stderr, "Could not open the xi database: %s.\n", sqlite3_errmsg(db));

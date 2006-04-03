@@ -22,6 +22,7 @@ clean:
 install:
 	$(INSTALL) -b xi $(PREFIX)/bin
 	$(INSTALL) xi.1 $(PREFIX)/man/man1
+	/usr/bin/touch /var/xi.db
 
 uninstall:
 	rm $(PREFIX)/bin/xi
