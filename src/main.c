@@ -1,4 +1,6 @@
 /*
+ * $Id$
+ *
  * Copyright (c) 2005 Ole Guldberg Jensen
  * All rights reserved.
  *
@@ -37,6 +39,7 @@
 #include <string.h>
 
 #include <xiarchive.h>
+#include <xidb.h>
 
 void 
 print_usage(const char* progname)
@@ -84,6 +87,9 @@ main (int argc, char *argv[])
 
 			case 'l':
 				fprintf(stdout, "You are trying to list archives\n");
+
+				fprintf(stdout, "Installed: \n%s\n", list_installed_xarchives());
+
 				break;
 
 			case '?':

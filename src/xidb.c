@@ -1,4 +1,6 @@
 /*
+ * $Id$
+ * 
  * Copyright (c) 2005 Ole Guldberg Jensen
  * All rights reserved.
  *
@@ -226,7 +228,7 @@ list_installed_xarchives(void)
 	/* Get installed xarchives */
 	snprintf(
 		sqlstring, 512,
-		""
+		"SELECT * from maintable;"
 	);
 
 	returnvalue = sqlite3_exec(db, sqlstring, NULL, NULL, &db_error_msg);
