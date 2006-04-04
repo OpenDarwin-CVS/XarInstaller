@@ -46,7 +46,7 @@
 #include <sqlite3.h>
 
 sqlite3 *db;
-const char *dbpath = "/var/xi.db";
+const char *dbpath = "/Users/olegb/xi.db";
 
 /* Initially add xarchive to main-table and create xarchive table */
 /* Returns the number of the index or a negative number if failure */
@@ -207,6 +207,19 @@ remove_xarchive_from_db(const char* xarch)
 	return 0;
 }
 
+/* Callback function */
+char*
+callback_list_installed_xarchives(void *NotUsed, int argc, char **argv, char **azColName)
+{
+	int i;
+
+	for (i = 0; i < argc; i++)
+	{
+		printf("%s %s\n", argv[i], azColName[i] );
+	}
+	return 0;
+}
+
 /* Returns installed xarchives */
 char*
 list_installed_xarchives(void)
@@ -231,7 +244,7 @@ list_installed_xarchives(void)
 		"SELECT * from maintable;"
 	);
 
-	returnvalue = sqlite3_exec(db, sqlstring, NULL, NULL, &db_error_msg);
+	returnvalue = sqlite3_exec(db, sqlstring, callback_list_installed_xarchives, NULL, &db_error_msg);
 	if (returnvalue != SQLITE_OK)
 	{
 		/* Something went wrong */
