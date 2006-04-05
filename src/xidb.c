@@ -41,6 +41,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
 
 /* Dependency headers */
 #include <sqlite3.h>
@@ -267,6 +268,13 @@ list_installed_xarchives(void)
 	return NULL;
 }
 
+/* Callback for listing xarch contents */
+int
+callback_list_installed_in_xarch(void *NotUsed, int argc, char **argv, char **azColName)
+{
+	return 0;
+}
+
 /* Returns the files installed in a xarchive */
 char*
 list_installed_in_xarchive(const char *xarch)
@@ -288,10 +296,10 @@ list_installed_in_xarchive(const char *xarch)
 	/* Add file and checksum to xarchive table */
 	snprintf(
 		sqlstring, 512,
-		""
+		"SELECT * FROM %s", xarch
 	);
 
-	returnvalue = sqlite3_exec(db, sqlstring, NULL, NULL, &db_error_msg);
+	returnvalue = sqlite3_exec(db, sqlstring, callback_list_installed_in_xarch, NULL, &db_error_msg);
 	if (returnvalue != SQLITE_OK)
 	{
 		/* Something went wrong */
