@@ -189,6 +189,8 @@ add_xarchive_with_name(const char *xarchname)
 		exit(1);
 	}
 
+	char chksum[512] = "";
+
 	/* Loop while there are any files in the xarchive */
 	for (xarch_f = xar_file_first(xarch, xarch_i); xarch_f ; xarch_f = xar_file_next(xarch_i) )
 	{
@@ -207,8 +209,10 @@ add_xarchive_with_name(const char *xarchname)
 		{
 			/* Print checksum */
 			printf("%02x", checksum[i]);
+			sprintf(chksum, "%s%02x", chksum, checksum[i]);
 		}
 		printf(")\n");
+		/* printf("**chksum:%s**\n", chksum); */
 
 		/* Add the file to the Database */
 		char tablename[512];
@@ -220,13 +224,14 @@ add_xarchive_with_name(const char *xarchname)
 			key
 		);
 
-		add_entry_to_db(tablename, xarchname, checksum);
+		add_entry_to_db(tablename, xarchname, chksum);
 
 		/* Clear checksum */
 		for (i = 0; i < strlen(checksum); i++)
 		{
 			checksum[i] = 0;
 		}
+		sprintf(chksum, "");
 	}
 
 	/* Close up and return */

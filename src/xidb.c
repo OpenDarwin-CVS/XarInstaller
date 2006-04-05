@@ -47,6 +47,7 @@
 
 sqlite3 *db;
 const char *dbpath = "/Users/olegb/xi.db";
+char *message;
 
 /* Initially add xarchive to main-table and create xarchive table */
 /* Returns the number of the index or a negative number if failure */
