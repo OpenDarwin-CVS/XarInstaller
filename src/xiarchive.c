@@ -212,7 +212,6 @@ add_xarchive_with_name(const char *xarchname)
 			sprintf(chksum, "%s%02x", chksum, checksum[i]);
 		}
 		printf(")\n");
-		/* printf("**chksum:%s**\n", chksum); */
 
 		/* Add the file to the Database */
 		char tablename[512];
