@@ -86,9 +86,9 @@ main (int argc, char *argv[])
 				break;
 
 			case 'l':
-				fprintf(stdout, "You are trying to list archives\n");
+				fprintf(stdout, "You are trying to list the installed archives:");
 
-				fprintf(stdout, "Installed: \n%s\n", list_installed_xarchives());
+				fprintf(stdout, "\nInstalled: \n%s\n", list_installed_xarchives());
 
 				break;
 

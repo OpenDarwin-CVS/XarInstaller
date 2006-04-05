@@ -208,15 +208,25 @@ remove_xarchive_from_db(const char* xarch)
 }
 
 /* Callback function */
-char*
+int
 callback_list_installed_xarchives(void *NotUsed, int argc, char **argv, char **azColName)
 {
 	int i;
+	printf("\n");
 
 	for (i = 0; i < argc; i++)
 	{
-		printf("%s %s\n", argv[i], azColName[i] );
+		if (strcmp(azColName[i], "key"))
+		{
+			printf("%s", argv[i] );
+		}
+		else
+		{
+			printf("(%s) ", argv[i] );
+		}
+		
 	}
+
 	return 0;
 }
 
@@ -238,7 +248,7 @@ list_installed_xarchives(void)
 		exit(1);
 	}
 
-	/* Get installed xarchives */
+	/* Get installed xarchives from the maintable */
 	snprintf(
 		sqlstring, 512,
 		"SELECT * from maintable;"

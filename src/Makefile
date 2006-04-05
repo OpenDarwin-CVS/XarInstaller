@@ -22,7 +22,8 @@ clean:
 install:
 	$(INSTALL) -b xi $(PREFIX)/bin
 	$(INSTALL) xi.1 $(PREFIX)/man/man1
-	/usr/bin/touch /var/xi.db
+	/usr/bin/touch /Users/olegb/xi.db
+	chmod 775 /Users/olegb/xi.db
 
 uninstall:
 	rm $(PREFIX)/bin/xi
